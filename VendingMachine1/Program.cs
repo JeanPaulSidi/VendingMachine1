@@ -7,7 +7,6 @@
             Console.WriteLine("******* VENDING MACHINE *******");
             Console.WriteLine();
             Console.WriteLine(List);
-            //Console.WriteLine();
             Console.WriteLine("*******************************");
         }
 
@@ -37,10 +36,10 @@
             string SelectionList = string.Empty;
             int InventoryCount;
 
-            VendingMachine VendingMachine = new VendingMachine();
+            VendingMachine VendingManager = new VendingMachine();
 
-            SelectionList = VendingMachine.GetInventoryList();
-            InventoryCount = VendingMachine.GetInventoryCount();
+            SelectionList = VendingManager.GetInventoryList();
+            InventoryCount = VendingManager.GetInventoryCount();
 
             DisplayMenu(SelectionList);
             UserSelection = GetUserChoice();
@@ -51,7 +50,7 @@
                 UserSelection = GetUserChoice();
             }
 
-            PurchasedItem = VendingMachine.BuyItem(UserSelection);
+            PurchasedItem = VendingManager.BuyItem(UserSelection);
             Console.WriteLine();
             Console.WriteLine("Thank you. Vending of " + PurchasedItem);
         }
