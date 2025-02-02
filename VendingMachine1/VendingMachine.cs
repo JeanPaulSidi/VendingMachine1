@@ -37,6 +37,10 @@ namespace VendingMachine1
             AddToInventory("Pepsi");
             AddToInventory("Coke");
             AddToInventory("Snack");
+            AddToInventory("Doritos");
+            AddToInventory("Mixed Fruit Gummies");
+            AddToInventory("Poptarts");
+            AddToInventory("Energy Drink");
 
         }
 
