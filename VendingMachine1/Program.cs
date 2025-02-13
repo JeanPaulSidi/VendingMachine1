@@ -37,22 +37,27 @@
             int InventoryCount;
 
             VendingMachine VendingManager = new VendingMachine();
-
-            SelectionList = VendingManager.GetInventoryList();
-            InventoryCount = VendingManager.GetInventoryCount();
-
-            DisplayMenu(SelectionList);
-            UserSelection = GetUserChoice();
-
-            while (UserSelection <= 0 || UserSelection > InventoryCount)
+            do
             {
-                Console.WriteLine("Input must be between 1 and " + InventoryCount);
-                UserSelection = GetUserChoice();
-            }
+                SelectionList = VendingManager.GetInventoryList();
+                InventoryCount = VendingManager.GetInventoryCount();
 
-            PurchasedItem = VendingManager.BuyItem(UserSelection);
-            Console.WriteLine();
-            Console.WriteLine("Thank you. Vending of " + PurchasedItem);
+                DisplayMenu(SelectionList);
+                UserSelection = GetUserChoice();
+
+                while (UserSelection <= 0 || UserSelection > InventoryCount)
+                {
+                    Console.WriteLine("Input must be between 1 and " + InventoryCount);
+                    UserSelection = GetUserChoice();
+                }
+
+                PurchasedItem = VendingManager.BuyItem(UserSelection);
+                Console.WriteLine();
+                Console.WriteLine("Thank you. Vending of " + PurchasedItem + ". Press any key to continue.");
+                Console.ReadKey();
+                Console.Clear();
+
+            }while(true);
         }
     }
 }
