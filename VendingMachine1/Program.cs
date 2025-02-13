@@ -27,6 +27,14 @@
 
             return UserChoice;
         }
+        public static void Log(string selected, int selection, TextWriter Log)
+        {
+            Log.Write( "\r\nDispensed at : ");
+            Log.WriteLine($"{DateTime.Now.ToLongTimeString()} {DateTime.Now.ToLongDateString()}");
+            Log.WriteLine($" Option      : {selection}");
+            Log.WriteLine($" Item vended : {selected}");
+            Log.WriteLine("-------------------------------");
+        }
 
 
         static void Main(string[] args)
@@ -54,10 +62,16 @@
                 PurchasedItem = VendingManager.BuyItem(UserSelection);
                 Console.WriteLine();
                 Console.WriteLine("Thank you. Vending of " + PurchasedItem + ". Press any key to continue.");
+
+                using (StreamWriter log = File.AppendText("log.txt"))
+                {
+                    Log(PurchasedItem, UserSelection, log);
+                }
+
                 Console.ReadKey();
                 Console.Clear();
 
-            }while(true);
+            } while(true);
         }
     }
 }
