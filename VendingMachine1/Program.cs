@@ -27,6 +27,14 @@
 
             return UserChoice;
         }
+        public static void Log(string selected, int selection, TextWriter Log)
+        {
+            Log.Write( "\r\nDispensed at : ");
+            Log.WriteLine($"{DateTime.Now.ToLongTimeString()} {DateTime.Now.ToLongDateString()}");
+            Log.WriteLine($" Option      : {selection}");
+            Log.WriteLine($" Item vended : {selected}");
+            Log.WriteLine("-------------------------------");
+        }
 
 
         static void Main(string[] args)
@@ -37,22 +45,33 @@
             int InventoryCount;
 
             VendingMachine VendingManager = new VendingMachine();
-
-            SelectionList = VendingManager.GetInventoryList();
-            InventoryCount = VendingManager.GetInventoryCount();
-
-            DisplayMenu(SelectionList);
-            UserSelection = GetUserChoice();
-
-            while (UserSelection <= 0 || UserSelection > InventoryCount)
+            do
             {
-                Console.WriteLine("Input must be between 1 and " + InventoryCount);
-                UserSelection = GetUserChoice();
-            }
+                SelectionList = VendingManager.GetInventoryList();
+                InventoryCount = VendingManager.GetInventoryCount();
 
-            PurchasedItem = VendingManager.BuyItem(UserSelection);
-            Console.WriteLine();
-            Console.WriteLine("Thank you. Vending of " + PurchasedItem);
+                DisplayMenu(SelectionList);
+                UserSelection = GetUserChoice();
+
+                while (UserSelection <= 0 || UserSelection > InventoryCount)
+                {
+                    Console.WriteLine("Input must be between 1 and " + InventoryCount);
+                    UserSelection = GetUserChoice();
+                }
+
+                PurchasedItem = VendingManager.BuyItem(UserSelection);
+                Console.WriteLine();
+                Console.WriteLine("Thank you. Vending of " + PurchasedItem + ". Press any key to continue.");
+
+                using (StreamWriter log = File.AppendText("log.txt"))
+                {
+                    Log(PurchasedItem, UserSelection, log);
+                }
+
+                Console.ReadKey();
+                Console.Clear();
+
+            } while(true);
         }
     }
 }
